@@ -13,23 +13,25 @@ StubFileProcessor.prototype.createFieldSchema = function() {
     type: {
       type: String
     },
-    url: String
+    url: String,
+    path: String
   }
 }
 
 StubFileProcessor.prototype.process = function(attachment, storageProvider, model, callback) {
-  storageProvider.save(attachment, function(error, url) {
+  storageProvider.save(attachment, function(error, url, path) {
     model.size = attachment.size
     model.name = attachment.name
     model.type = attachment.type
     model.url = url
+    model.path = path
 
     callback(error)
   })
 }
 
 StubFileProcessor.prototype.willOverwrite = function(model) {
-  return !!model.url
+  return !!model.path
 }
 
 StubFileProcessor.prototype.remove = function(storageProvider, model, callback) {

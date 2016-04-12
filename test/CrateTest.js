@@ -489,13 +489,14 @@ describe('Crate', function() {
       bar: {}
     })
     fileProcessor.process = function(attachment, storageProvider, model, callback) {
-      storageProvider.save(attachment, function(error, url) {
+      storageProvider.save(attachment, function(error, url, path) {
         ['foo', 'bar'].forEach(function(property) {
           model[property] = {
             size: attachment.size,
             name: attachment.name,
             type: attachment.type,
-            url: url
+            url: url,
+            path: path
           }
         })
 

@@ -10,7 +10,8 @@ module.exports = function(processor, callback) {
   }
 
   // happy path
-  storage.save.callsArgWith(1, undefined, randomString(10))
+  var randomDir = randomString(10)
+  storage.save.callsArgWith(1, undefined, randomDir, randomDir)
   storage.remove.callsArg(1)
 
   var StubSchema = new mongoose.Schema({
